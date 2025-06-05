@@ -1,0 +1,35 @@
+{
+  "name": "playwright_ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "parallel": "npx playwright test",
+    "test:serial": "npx playwright test --workers=1 --project=chromium",
+    "smoke-parallel": "npx playwright test --grep @smoke",
+    "smoke-serial": "npx playwright test --grep @smoke --workers=1 --project=chromium",
+    "smoke": "npx playwright test --grep @smoke --project=chromium",
+    "reg": "npx playwright test --grep @reg --project=chromium",
+    "reg-parallel": "npx playwright test --grep @reg",
+    "reg-serial": "npx playwright test --grep @reg --workers=1 --project=chromium",
+    "login": "npx playwright test loginTest.spec.ts --project=chromium",
+    "chrome": "npx playwright test --project=chromium",
+    "firefox": "npx playwright test --project=firefox",
+    "safari": "npx playwright test --project=webkit",
+    "allure": "allure generate allure-results -o allure-report --clean && allure open allure-report",
+     "allure-single": "allure generate allure-results --clean --single-file -o allure-single-html-report && start allure-single-html-report/index.html",
+    "allure-clear": "rmdir /s /q allure-results && rmdir /s /q single-html-report",
+    "html": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/exceljs": "^0.5.3",
+    "@types/node": "^22.14.1",
+    "allure-playwright": "^3.2.2"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}
