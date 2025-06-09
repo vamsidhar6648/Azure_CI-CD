@@ -1,0 +1,47 @@
+[
+    {
+        "personalDetails": {
+            "firstname": "dhar",
+            "middlename": "dhar",
+            "lastname": "no",
+            "id": "276",
+            "otherid": "200",
+            "num": "2025-11-02",
+            "date": "02-11-2004",
+            "nation": "American",
+            "maritalstatus": "married",
+            "gender": "male",
+            "dob": "02-11-2004"
+        },
+        "contactDetails": {
+              "street1": "street1-yellareddyguda",
+              "street2": "street2-yellareddyguda",
+              "city": "hyderabad",
+              "state": "telangana",
+              "postalcode": "500001",
+              "country": "algeria",
+              "home": "532/2",
+              "mobile": "9777777890",
+              "work": "532/2",
+              "workemail": "test@example.com",
+              "otheremail": "test1@example.com"
+        },
+       "emergencyContactDetails": {
+            "name": "dhar",
+            "relationship": "brother",
+            "homenumber": "532/2",
+            "mobilenumber": "9777777890",
+            "worknumber": "532/2",
+            "workemail": "test@example.com"
+            
+        },
+        "addDependents":{
+            "name":"kalyan",
+            "relation":"bro",
+            "dob":"1947-11-02"
+
+        }
+
+    
+    }
+]
