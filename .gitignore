@@ -8,7 +8,6 @@ node_modules/
 /allure-report/
 /allure-results/
 /screenshots/
-/Utils/config.ts
 /test-data/
 /.env
 /.env.local 
