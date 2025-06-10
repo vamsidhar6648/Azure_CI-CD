@@ -23,9 +23,13 @@ parameters:
       - safari
 
 steps:
-  - script: echo "Running the test ${{ parameters.Module }} on ${{ parameters.Browser }}"
-    displayName: 'Selected test run with selected browser'
-
-  - script: |
-      npx playwright test tests/${{ parameters.Module }} --project=${{ parameters.Browser }}
-    displayName: 'Run the Playwright test'
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18'
+  displayName: 'Install Node.js'
+- script: npm ci
+  displayName: 'npm ci'
+- script: npx playwright install --with-deps
+  displayName: 'Install Playwright browsers'
+- script: npx playwright test ./${{ parameters.Module }} --project=${{ parameters.Browser }} 
+  displayName: 'Run Playwright tests'
