@@ -27,6 +27,7 @@ steps:
     displayName: 'Selected test run with selected browser'
 
   - script: |
+      npm install
       npx playwright install
       npx playwright test tests/${{ parameters.Module }} --project=${{ parameters.Browser }}
     displayName: 'Run the Playwright test'
