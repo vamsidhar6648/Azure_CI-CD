@@ -1,19 +1,32 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- main
+trigger: none 
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+parameters:
+  - name: Module
+    displayName: 'Select the test'
+    type: string
+    default: loginTest.spec.ts
+    values:
+      - loginTest.spec.ts
+      - pimTest.spec.ts
+      - adminTest.spec.ts
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - name: Browser
+    displayName: 'Select the browser'
+    type: string
+    default: chrome
+    values:
+      - chrome
+      - firefox
+      - safari
+
+steps:
+  - script: echo "Running the test ${{ parameters.Module }} on ${{ parameters.Browser }}"
+    displayName: 'Selected test run with selected browser'
+
+  - script: |
+      npx playwright install
+      npx playwright test tests/${{ parameters.Module }} --project=${{ parameters.Browser }}
+    displayName: 'Run the Playwright test'
