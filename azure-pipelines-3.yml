@@ -1,19 +1,10 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- main
+trigger: none
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    curl -X POST "https://3bce-183-82-115-164.ngrok-free.app/job/Jenkins_triggers_ADO_Hybrid/buildWithParameters?ENV=dev&token=triggerado&cause=Triggered+from+ADO" \
+    --user "vamsi:11c71c7c5cf6f713d7be26361f74f8194a"
+  displayName: 'Trigger Jenkins Job via API'
