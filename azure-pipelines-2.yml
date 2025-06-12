@@ -1,19 +1,33 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+trigger: none    # No CI trigger on push — this is purely scheduled
 
-trigger:
-- main
+schedules:
+  - cron: "30 21 * * *"               # 3:00 AM IST = 9:30 PM UTC
+    displayName: Daily Smoke Run
+    branches:
+      include:
+        - main
+    always: true                      # Run even if no code changes
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'            # Microsoft-hosted Linux agent
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Install Node.js'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - script: npm ci
+    displayName: 'Install Dependencies'
+
+  - script: npx playwright install --with-deps
+    displayName: 'Install Playwright Browsers'
+
+  - script: npx playwright test --grep @smoke --project=chromium
+    displayName: 'Run Smoke Tests on Chromium'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: '**/test-results/**/*.xml'   # Customize if you export JUnit XML
+      testRunTitle: 'Scheduled Smoke Tests'
+    condition: succeededOrFailed()                   # Upload results even on failure
