@@ -1,19 +1,48 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- main
+trigger: none
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+parameters:
+  - name: Module
+    displayName: "Select Test"
+    type: string
+    default: "loginTest.spec.ts"
+    values:
+      - "loginTest.spec.ts"
+      - "pim.spec.ts"
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - name: Browser
+    displayName: "Select Browser"
+    type: string
+    default: "Chromium"
+    values:
+      - "Chromium"
+      - "Firefox"
+      - "Edge"
+
+stages:
+- stage: Trigger_Jenkins
+  displayName: "Trigger Jenkins Job"
+  jobs:
+  - job: TriggerJob
+    displayName: "Call Jenkins API with Parameters"
+    steps:
+    - task: Bash@3
+      displayName: "Trigger Jenkins Job"
+      inputs:
+        targetType: 'inline'
+        script: |
+          JENKINS_URL="https://3943-183-82-115-164.ngrok-free.app"
+          JOB_NAME="Jenkins_With_ADO"
+          TOKEN="11a575a43f6719cd829522c842d633500f"
+          USER="vamsi"
+          API_TOKEN="your_api_token_here"  # Replace this with your real Jenkins API token
+
+          MODULE="${{ parameters.Module }}"
+          BROWSER="${{ parameters.Browser }}"
+
+          FINAL_URL="$JENKINS_URL/job/$JOB_NAME/buildWithParameters?token=$TOKEN&Module=$MODULE&Browser=$BROWSER"
+
+          echo "Triggering: $FINAL_URL"
+          curl -X POST --user "$USER:$API_TOKEN" "$FINAL_URL"
