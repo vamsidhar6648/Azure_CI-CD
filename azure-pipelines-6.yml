@@ -3,8 +3,50 @@ trigger: none
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- script: |
-    curl -X POST "https://3943-183-82-115-164.ngrok-free.app/job/Jenkins_triggers_ADO_Hybrid/token=triggerado&cause=Triggered+from+ADO" \
-    --user "vamsi:118d82c1419ad2e50c4f27827acdde7a21"
-  displayName: "Trigger Jenkins Job from ADO"
+parameters:
+  - name: script
+    displayName: "Select script"
+    type: string
+    default: "loginTest.spec.ts"
+    values:
+      - "loginTest.spec.ts"
+      - "FeedBack_Intake.test.js"
+      - "ARCPage.test.js"
+
+  - name: Browser
+    displayName: "Select Browser"
+    type: string
+    default: "chromium"
+    values:
+      - "chromium"
+      - "Firefox"
+      - "Edge"
+      - "Safari"
+
+stages:
+- stage: Trigger_Jenkins
+  displayName: "Trigger Jenkins Job"
+  jobs:
+  - job: TriggerJob
+    displayName: "Call Jenkins API with Parameters"
+    steps:
+    - script: |
+        # Define variables
+        JENKINS_URL="https://3943-183-82-115-164.ngrok-free.app"
+        JOB_NAME="Jenkins_triggers_ADO_Hybrid"
+        TOKEN="triggerado"
+        USER="vamsi"
+        API_TOKEN="118d82c1419ad2e50c4f27827acdde7a21"
+
+        # Pass selected parameters to Jenkins
+        SCRIPT_NAME="${{ parameters.script }}"
+        BROWSER="${{ parameters.Browser }}"
+
+        # Final URL
+        FINAL_URL="$JENKINS_URL/job/$JOB_NAME/buildWithParameters?token=$TOKEN&script=$SCRIPT_NAME&Browser=$BROWSER"
+
+        echo "Triggering Jenkins job: $FINAL_URL"
+
+        # Send CURL request to trigger Jenkins job
+        curl -X POST "$FINAL_URL" --user "$USER:$API_TOKEN"
+      displayName: "Trigger Jenkins Job from ADO"
