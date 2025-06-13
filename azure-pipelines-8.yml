@@ -1,4 +1,4 @@
-trigger: none
+trigger: none  # Manual trigger only
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -26,21 +26,29 @@ stages:
   displayName: "Trigger Jenkins Job"
   jobs:
   - job: TriggerJob
-    displayName: "Call Jenkins API with Parameters"
+    displayName: "Call Jenkins Job via curl"
     steps:
     - task: Bash@3
       displayName: "Trigger Jenkins Job"
       inputs:
         targetType: 'inline'
         script: |
+          # Set Jenkins details
           JENKINS_URL="https://3943-183-82-115-164.ngrok-free.app"
           JOB_NAME="Jenkins_With_ADO"
           TOKEN="11a575a43f6719cd829522c842d633500f"
 
+          # Parameters from ADO
           MODULE="${{ parameters.Module }}"
           BROWSER="${{ parameters.Browser }}"
 
+          # Build full trigger URL
           FINAL_URL="$JENKINS_URL/job/$JOB_NAME/buildWithParameters?token=$TOKEN&Module=$MODULE&Browser=$BROWSER"
 
-          echo "Triggering: $FINAL_URL"
+          echo "Triggering Jenkins Job with:"
+          echo "  Module: $MODULE"
+          echo "  Browser: $BROWSER"
+          echo "  URL: $FINAL_URL"
+
+          # Trigger Jenkins job
           curl -X POST "$FINAL_URL"
