@@ -36,8 +36,6 @@ stages:
           JENKINS_URL="https://3943-183-82-115-164.ngrok-free.app"
           JOB_NAME="Jenkins_With_ADO"
           TOKEN="11a575a43f6719cd829522c842d633500f"
-          USER="vamsi"
-          API_TOKEN="your_api_token_here"  # Replace this with your real Jenkins API token
 
           MODULE="${{ parameters.Module }}"
           BROWSER="${{ parameters.Browser }}"
@@ -45,4 +43,4 @@ stages:
           FINAL_URL="$JENKINS_URL/job/$JOB_NAME/buildWithParameters?token=$TOKEN&Module=$MODULE&Browser=$BROWSER"
 
           echo "Triggering: $FINAL_URL"
-          curl -X POST --user "$USER:$API_TOKEN" "$FINAL_URL"
+          curl -X POST "$FINAL_URL"
