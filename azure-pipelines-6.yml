@@ -5,6 +5,6 @@ pool:
 
 steps:
 - script: |
-    curl -X POST "https://3943-183-82-115-164.ngrok-free.app/job/Jenkins_With_ADO/buildWithParameters?Module=loginTest.spec.ts&Browser=chromium&token=triggerado&cause=Triggered+from+ADO" \
+    curl -X POST "https://3943-183-82-115-164.ngrok-free.app/job/Jenkins_With_ADO/buildWithParameters?script=login&token=triggerado&cause=Triggered+from+ADO" \
     --user "vamsi:118d82c1419ad2e50c4f27827acdde7a21"
   displayName: "Trigger Jenkins Job from ADO"
