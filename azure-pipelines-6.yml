@@ -33,7 +33,7 @@ stages:
     - script: |
         # Define variables
         JENKINS_URL="https://3943-183-82-115-164.ngrok-free.app"
-        JOB_NAME="Jenkins_triggers_ADO_Hybrid"
+        JOB_NAME="Jenkins_With_ADO"
         TOKEN="triggerado"
         USER="vamsi"
         API_TOKEN="118d82c1419ad2e50c4f27827acdde7a21"
