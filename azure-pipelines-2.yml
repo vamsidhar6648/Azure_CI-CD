@@ -1,8 +1,8 @@
 trigger: none    # No CI trigger on push — this is purely scheduled
 
-schedules:
-  - cron: "30 21 * * *"               # 3:00 AM IST = 9:30 PM UTC
-    displayName: Daily Smoke Run
+# schedules:
+ # - cron: "30 21 * * *"               # 3:00 AM IST = 9:30 PM UTC
+ #   displayName: Daily Smoke Run
     branches:
       include:
         - main
