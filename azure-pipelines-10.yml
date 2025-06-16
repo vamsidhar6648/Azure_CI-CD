@@ -10,7 +10,7 @@ parameters:
     default: "loginTest.spec.ts"
     values:
       - "loginTest.spec.ts"
-      - "pim.spec.ts"
+      - "pimTest.spec.ts"
 
 steps:
 - script: |
