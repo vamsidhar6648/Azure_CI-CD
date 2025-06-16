@@ -16,5 +16,5 @@ steps:
 - script: |
     echo "Triggering Jenkins with selected module: $(Module)"
     curl -v -X POST "https://3943-183-82-115-164.ngrok-free.app/job/Fresh_Jenkins_NodeWay_Trigger/buildWithParameters?MODULE=$(Module)&token=triggerado" \
-    --user "vamsi:118d82c1419ad2e50c4f27827acdde7a21"
+    --user "ado:115ea4a5694c83bc35b4e9ac4bb8ac19a8"
   displayName: "Trigger Jenkins Pipeline"
